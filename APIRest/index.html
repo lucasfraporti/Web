@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>API Rest</title>
+    </head>
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="server.js">
+            // Adição de usuários!
+            $("#send").click(function(event){
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8001/adicionar",
+                    data: $("#form").serialize(),
+                    dataType: "json",
+                    success: function(){
+                        $("#form").submit();
+                    }
+                });
+            });
+
+            // Mostrar todos os usuários!
+            $("#sendvall").click(function(event){
+                event.preventDefault();
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8001/users",
+                    dataType: "json",
+                    success: function(){
+                        $("#formvall").submit();
+                    }
+                });
+            });
+            // Tentei fazer a parte de buscar com um ID específico, porém não consegui.
+            // Tentei redirecionar o action do formulário para o link do localhost:8001/users/ID_digitado, porém não deu certo!
+        </script>
+
+        <form id="form" method="POST" action="http://localhost:8001/adicionar">
+            <label>Nome</label>
+            <input type="text" name="nome"></br>
+            <label>Senha</label>
+            <input type="text" name="senha"></br>
+            <input type="submit" id="send" value="Cadastrar">
+        </form>
+
+        <form id="formvall" method="GET" action="http://localhost:8001/users">
+            <input type="submit" id="sendvall" value="Ver todos">
+        </form>
+    </body>
+</html>
