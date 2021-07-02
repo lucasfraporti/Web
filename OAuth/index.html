@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google-signin-client_id" content="626344069932-ghv094f31m3pk72efmfd8e51b48a42m3.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <title>OAuth - Google</title>
+    </head>
+    <body>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div id="content"></div>
+        <button onclick="signOut()">Deslogar</button>
+    </body>
+
+    <script>
+        function onSignIn(googleUser){
+            // Pega o perfil do usuário e manda pro console!
+            var profile = googleUser.getBasicProfile();
+            console.log(JSON.stringify(profile));
+
+            // Entrega o nome para <div#content>
+            var element = document.querySelector("#content");
+            element.innerHTML = googleUser.getBasicProfile().getName() + "<br/>";
+
+            // Expõe a imagem do perfil do usuário na tela!
+            var image = document.createElement("img");
+            image.setAttribute("src", profile.getImageUrl());
+            element.append(image);
+        }
+
+        function signOut(){
+            gapi.auth2.getAuthInstance().signOut().then(function(){
+                // Remove da tela o nome do usuário e a imagem, além de retornar mensagem de sucesso para o console!
+                console.log("Usuário se desconectou!");
+                document.querySelector("#content").innerHTML = "";
+            })
+        }
+    </script>
+</html>
