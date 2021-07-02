@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encurtador</title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function myFunction(){
+            var valor = document.getElementById("linking").value;
+            $.getJSON("https://is.gd/create.php?callback=?", {url: valor, format: "json"})
+            .done(function(data){
+                let newlink = data.shorturl;
+                if(newlink !== undefined){
+                    document.getElementById("resp").value = newlink;
+                }else{
+                    document.getElementById("resp").value = "Insira um link válido";
+                }
+            })
+        }
+    </script>
+    <form id="theForm">
+        Insira o link: <input type="text" id="linking" placeholder="https://www.site.com/">
+        <input type="button" onclick="myFunction()" value="Encurtar">
+    </form>
+    Retorno: <input type="text" id="resp" placeholder="https://is.gd/Keg4Uc">
+</body>
+</html>
